@@ -7,3 +7,5 @@ custom/*
 *.swp
 !custom/example.zshcache
 cache/
+!custom/mine.zsh
+!custom/mine.zshcache
