@@ -95,7 +95,7 @@ prompt_dir() {
 prompt_status() {
   local symbols
   symbols=()
-  [[ $RETVAL -ne 0 ]] && symbols+="%{%F{red}%}$RETVAL"
+  [[ $RETVAL -ne 0 ]] && symbols+="%{%F{red}%}✘"
   [[ $UID -eq 0 ]] && symbols+="%{%F{yellow}%}⚡"
   [[ $(jobs -l | wc -l) -gt 0 ]] && symbols+="%{%F{cyan}%}⚙"
 
@@ -112,4 +112,23 @@ build_prompt() {
   prompt_end
 }
 
-PROMPT='%{%f%b%k%}$(build_prompt) '
+PROMPT='
+%{%f%b%k%}$(build_prompt) '
+
+if [ "$POWERLINE_RIGHT_B" = "" ]; then
+  POWERLINE_RIGHT_B=%D{%H:%M:%S}
+fi
+
+if [ "$POWERLINE_RIGHT_A" = "" ]; then
+  POWERLINE_RIGHT_A=%D{%Y-%m-%d}
+fi
+
+POWERLINE_COLOR_BG_GRAY=%K{240}
+POWERLINE_COLOR_BG_LIGHT_GRAY=%K{240}
+POWERLINE_COLOR_BG_WHITE=%K{255}
+
+POWERLINE_COLOR_FG_GRAY=%F{240}
+POWERLINE_COLOR_FG_LIGHT_GRAY=%F{240}
+POWERLINE_COLOR_FG_WHITE=%F{255}
+
+RPROMPT=$POWERLINE_COLOR_FG_WHITE$'\u2b82'"%f$POWERLINE_COLOR_BG_WHITE $POWERLINE_COLOR_FG_GRAY$POWERLINE_RIGHT_B "$'\u2b82'"%f%k$POWERLINE_COLOR_BG_GRAY$POWERLINE_COLOR_FG_WHITE $POWERLINE_RIGHT_A %f%k"
