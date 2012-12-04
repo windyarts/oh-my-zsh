@@ -6,5 +6,6 @@ export PATH=$HOME/bin:$PATH
 
 alias sublp="subl *.sublime-project"
 alias npmg="npm -g"
+alias 0='dirs -v | head -10'
 
 github=$HOME/work/github
